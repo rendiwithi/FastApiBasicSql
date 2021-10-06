@@ -1,10 +1,11 @@
 from fastapi import FastAPI, Depends
 # from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from routes.user import user
+from routes.index import index
 app = FastAPI()
 # oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
-
+app.include_router(index)
 app.include_router(user)
 
 # @app.post('/token')

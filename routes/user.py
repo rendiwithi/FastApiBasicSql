@@ -6,11 +6,11 @@ from schemas.user import User
 
 user = APIRouter()
 
-@user.get('/')
+@user.get('/user/list/')
 def fetch_users():
     return conn.execute(users.select()).fetchall()
 
-@user.post('/create/')
+@user.post('/user/create/')
 def create_users(user:User):
     return conn.execute(users.insert().values(
             name=user.name,
@@ -18,8 +18,7 @@ def create_users(user:User):
             password=user.password)
     )
 
-
-@user.put('/update/{id}')
+@user.put('/user/update/{id}')
 def update_users(id: int, user: User):
     return conn.execute(
         users.update().values(
@@ -28,7 +27,6 @@ def update_users(id: int, user: User):
             password=user.password)
         .where(users.c.id == id))
 
-
-@user.delete('/remove/{id}')
+@user.delete('/user/remove/{id}')
 def delete_users(id: int):
     return conn.execute(users.delete().where(users.c.id == id))
